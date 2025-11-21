@@ -1,42 +1,38 @@
 #--------------------
-#Librerie
+# Modules
 #--------------------
 import board
 import render
 import time
 
 #--------------------
-#Main
+# Main
 #--------------------
 
 print("\033[2J\033[H", end="")
 print("Benvenuto.\n" + 
 	"Premi Ctrl + C per interrompere in qualsiasi momento.\n")
 
-# altezza = int(input('Inserisci l\'altezza della board:\n'))
-# larghezza = int(input('Inserisci la larghezza della board:\n'))
+input("Premi un tasto per continuare.")
 
-try:
-	input("Premi enter per continuare")
-except TypeError:
-	print("TypeError")
-
-
-altezza = 28
-larghezza = 36
-griglia = board.random_state(board.death_state(altezza, larghezza)) #Initialize board
+# Per modificare le dimensioni della griglia modifica i commenti
+# height = int(input('Inserisci l\'height della board:\n'))
+# width = int(input('Inserisci la width della board:\n'))
+height = 28
+width = 36
+grid = board.random_state(board.death_state(height, width)) #Initialize board
 
 try:
 	while True:
-		output_griglia = render.renderizza(griglia)
-		print (output_griglia)
-		next = board.next_board_state(griglia)
-		griglia = next
+		output_grid = render.render(grid)
+		print(output_grid)
+		next_grid = board.next_board_state(grid)
+		grid = next_grid
 		time.sleep(0.15)
 
-		linee_da_risalire = output_griglia.count("\n") + 1
-		print(f"\033[{linee_da_risalire}A", end="")
+		climb_spaces = output_grid.count("\n") + 1
+		print(f"\033[{climb_spaces}A", end="")
 
 except KeyboardInterrupt:
-	print(f"\033[{altezza+3}B", end="")
+	print(f"\033[{height+3}B", end="")
 	print("\nGioco interrotto.\nA presto!")
